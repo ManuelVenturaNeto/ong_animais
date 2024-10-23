@@ -1,0 +1,13 @@
+{% load static %}
+{% block content %}
+    <!-- Coloque seus cards aqui -->
+    <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
+        <div class="card text-center">
+            <img src="{{ i.foto.url }}" class="card-img-top" alt="Nome da Pessoa">
+            <div class="card-body">
+                <h5 class="card-title">{{ i.nome }}</h5>
+                <p class="card-text">categoria: {{ i.get_categoria_display }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
