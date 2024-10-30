@@ -14,4 +14,10 @@
             </div>
         </div>
     </div>
+    {% if user.auth == isadminuser %}
+    <div class="container mt-5">
+        <a href="{% url 'cadastra_pet' %}" class="btn btn-outline-primary">Registrar pet</a>
+        <a class="btn btn-outline-secondary">Deletar pet</a>
+    </div>
+    {% endif %}
 {% endblock %}
