@@ -3,11 +3,16 @@
     <!-- Coloque seus cards aqui -->
     <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
         <div class="card text-center">
-            <img src="{{ i.foto.url }}" alt="Imagem" class="imagem-card">
+            {% if pet.foto == "" or pet.foto == null %}
+                <img src="{% static 'assets/fotos/not-found.png' %}" alt="Imagem" class="imagem-card">
+            {% else %}
+                <img src="{{ pet.foto.url }}" alt="Imagem" class="imagem-card">
+            {% endif %}
             <div class="card-body">
-                <h5 class="card-title">{{ i.nome }}</h5>
-                <p class="card-text">categoria: {{ i.get_categoria_display }}</p>
+                <h5 class="card-title">{{ pet.nome }}</h5>
+                <p class="card-text">categoria: {{ pet.get_categoria_display }}</p>
                 <button class="btn btn-outline-success">Adotar</button>
+                <a href="{% url 'deleta_pet' pet.id %}" class="btn btn-outline-danger">Remover</a>
             </div>
         </div>
     </div>

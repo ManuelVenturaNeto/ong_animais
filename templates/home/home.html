@@ -1,23 +1,22 @@
 {% extends 'base/base.html' %} 
 {% load static %}
 {% block content %}
-    <!-- Conteúdo Principal -->
+    <!-- Menu Principal -->
     <div class="container mt-5">
         <h1>Doe seu lar, adote um pet</h1>
         <p>Abaixo então os animais disponiveis para adoção. Selecione quem você quer adotar!</p>
         <div class="container flex-grow-1">
-            <!-- Seu conteúdo aqui, incluindo os cards -->
+            <!-- Cards -->
             <div class="row">
-                {% for i in pets %}
+                {% for pet in pets %}
                     {% include 'home/cards_pets.html' %}
                 {% endfor %}
             </div>
         </div>
     </div>
-    {% if user.auth == isadminuser %}
+    {% if user.auth == is_adminuser %}
     <div class="container mt-5">
-        <a href="{% url 'cadastra_pet' %}" class="btn btn-outline-primary">Registrar pet</a>
-        <a class="btn btn-outline-secondary">Deletar pet</a>
+        <a href="{% url 'registra_pet' %}" class="btn btn-outline-primary">Registrar pet</a>
     </div>
     {% endif %}
 {% endblock %}
