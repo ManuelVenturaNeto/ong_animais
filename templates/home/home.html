@@ -14,9 +14,9 @@
             </div>
         </div>
     </div>
-    {% if user.auth == is_adminuser %}
+    {% if user.is_superuser %}
     <div class="container mt-5">
-        <a href="{% url 'registra_pet' %}" class="btn btn-outline-primary">Registrar pet</a>
+        <a href="{% url 'register_pet' %}" class="btn btn-outline-primary">Registrar pet</a>
     </div>
     {% endif %}
 {% endblock %}

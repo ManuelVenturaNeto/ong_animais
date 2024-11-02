@@ -16,7 +16,7 @@ def sobre(request):
 def contato(request):
     return render(request, 'informacoes/contato.html') 
 
-def registra_pet(request):
+def register_pet(request):
     if not request.user.is_authenticated:
         return redirect('home')
     
@@ -59,10 +59,22 @@ def registra_pet(request):
     else:
         form = PetForms()
 
-    return render(request, 'pets/cadastra_pet.html', {'form': form})
+    return render(request, 'pets/register_pet.html', {'form': form})
 
-def deleta_pet(request, foto_id):
+def delete_pet(request, foto_id):
     pet = Pet.objects.get(id=foto_id)
     pet.delete()
     messages.success(request, "Pet deletado com sucesso")
     return redirect('home')
+
+def edit_pet(request, foto_id):
+    pet = Pet.objects.get(id=foto_id)
+    form = PetForms(instance=pet)
+    
+    if request.method == 'POST':
+        form = PetForms(request.POST, request.FILES, instance=pet)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Pet editado com sucesso')
+            return redirect('home')
+    return render(request, 'pets/edit_pet.html', {'form': form, 'foto_id': foto_id})

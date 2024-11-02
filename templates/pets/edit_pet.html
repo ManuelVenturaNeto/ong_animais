@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %} 
+{% load static %}
+{% block content %}
+    <section class="container mt-5" style="position:-ms-page;">
+        <form action="{% url 'edit_pet' foto_id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                {% for field in form.visible_fields %}
+                <div class="col-12 col-lg-12" style="margin-bottom: 10px;">
+                    <label for="{{ field.id_for_label }}" style="color:#271414; margin-bottom: 5px;">
+                        {{ field.label }}
+                    </label>
+                    {{ field }}
+                </div>
+                {% endfor %}
+                <div>
+                    <button type="submit" class="btn btn-outline-primary" style="padding: top 5px;">
+                        Editar pet
+                    </button>
+                </div>
+            </div>
+        </form>
+    </section>
+{% endblock %}

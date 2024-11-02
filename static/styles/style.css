@@ -33,113 +33,55 @@ footer p {
     color: #666; /* Cor do texto no footer */
 }
 
-
+/* Estilo do Card */
 .card {
-    border: none; /* Remove borda do card */
-    border-radius: 10px; /* Bordas arredondadas */
-    transition: transform 0.2s; /* Efeito de transição ao passar o mouse */
-    display: flex; /* Para usar flexbox */
-    flex-direction: column; /* Alinha os filhos em coluna */
-    height: 100%; /* Faz com que todos os cards ocupem a mesma altura */
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    min-height: 350px;  /* Altura mínima */
-    max-height: 350px;  /* Altura máxima */
-    min-width: 230px;   /* Largura mínima */
-    max-width: 230px;   /* Largura mínima */
+    width: 100%;
+    max-width: 250px;
+    min-height: 450px; /* Define uma altura mínima para uniformizar os cards */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    margin: 15px;
+    background-color: #e5d0a6c7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
 }
 
-.card-body {
-    flex-grow: 1; /* Permite que o corpo do card cresça para ocupar espaço */
-}
-
-/* Estilo da imagem do card */
-.imagem-card {
-    width: 150px;         /* Defina a largura fixa desejada */
-    height: 150px;        /* Defina a altura fixa desejada */
-    object-fit: cover;    /* Ajusta a imagem para preencher o espaço sem deformar */
-    margin: 0 auto;      /* Centraliza a imagem horizontalmente */
-}
 .card:hover {
     transform: scale(1.05); /* Aumenta o card ao passar o mouse */
 }
 
-.card-img-top {
-    border-radius: 10px 10px 0 0; /* Bordas arredondadas na imagem */
-}
-
-/* Estilo do texto do card */
-.card-title {
-    font-size: 1.25rem; /* Tamanho da fonte do título */
-    color: #333; /* Cor do título */
-}
-
-.card-text {
-    color: #555; /* Cor do texto da descrição */
-}
-
-/* Margem superior para o conteúdo principal */
-.container {
-    margin-top: 80px; /* Para espaçamento em relação ao navbar fixo */
-}
-/* Flexbox para garantir que o footer fique no final da página */
-.d-flex {
-    display: flex;
-}
-
-.flex-column {
-    flex-direction: column;
-}
-
-.min-vh-100 {
-    min-height: 100vh; /* Garantir que a altura mínima seja a altura da tela */
-}
-
-.flex-grow-1 {
-    flex-grow: 1; /* Permite que o conteúdo cresça para ocupar o espaço disponível */
-}
-
-.form-control {
-    display: block;
+/* Estilo da imagem do card */
+.imagem-card {
     width: 100%;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: 0.375rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
 }
 
-.form-check {
-    display: block;
-    min-height: 1.5rem;
-    padding-left: 1.5em;
-    margin-bottom: 0.125rem;
+/* Título e Categoria com largura fixa */
+.card-title, .card-text {
+    font-size: 1.25rem;
+    color: #333;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 10px 0;
 }
 
-.form-check-input {
-    width: 1em;
-    height: 1em;
-    margin-top: 0.25em;
-    vertical-align: top;
-    background-color: #fff;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    border: 1px solid rgba(0,0,0,.25);
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    -webkit-print-color-adjust: exact;
-    color-adjust: exact;
+/* Grupo de botões para centralização */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 80%; /* Define um comprimento máximo para todos os botões */
+    gap: 5px;
 }
 
-
-
+/* Botões uniformes */
+.button-group .btn {
+    width: 100%; /* Faz os botões ocuparem toda a largura disponível */
+    padding: 8px;
+}
