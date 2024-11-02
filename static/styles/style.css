@@ -41,6 +41,12 @@ footer p {
     display: flex; /* Para usar flexbox */
     flex-direction: column; /* Alinha os filhos em coluna */
     height: 100%; /* Faz com que todos os cards ocupem a mesma altura */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    min-height: 350px;  /* Altura mínima */
+    max-height: 350px;  /* Altura máxima */
+    min-width: 230px;   /* Largura mínima */
+    max-width: 230px;   /* Largura mínima */
 }
 
 .card-body {

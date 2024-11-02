@@ -4,6 +4,7 @@ from .forms import PetForms
 from django.contrib import messages
 from PIL import Image
 import os
+# from .validators import is_image
 
 def home(request):
     pets = Pet.objects.all()
@@ -13,75 +14,50 @@ def sobre(request):
     return render(request, 'informacoes/sobre.html')
 
 def contato(request):
-    return render(request, 'informacoes/contato.html')
-
-"""
-def cadastra_pet(request):
-    if not request.user.is_authenticated:
-        return redirect('home')
-
-    if request.method == 'POST':
-        form = PetForms(request.POST, request.FILES)
-        if form.is_valid():
-            pet = form.save(commit=False)  # Salva a instância sem escrever no banco
-            pet.save()  # Salva a instância no banco para obter o caminho da imagem
-            
-            if pet.foto:  # Verifica se a imagem foi enviada
-                img = Image.open(pet.foto.path)  # Abre a imagem
-                size = (150, 100)
-                img = img.resize(size, Image.LANCZOS)  # Substitui Image.ANTIALIAS por Image.LANCZOS
-                img.save(pet.foto.path)  # Salva a imagem recortada
-
-            return redirect('pet_list')  # Redireciona após o cadastro bem-sucedido
-    else:
-        form = PetForms()  # Inicializa um novo formulário
-
-    return render(request, 'pets/cadastra_pet.html', {'form': form})
-"""
+    return render(request, 'informacoes/contato.html') 
 
 def registra_pet(request):
     if not request.user.is_authenticated:
         return redirect('home')
-
+    
     if request.method == 'POST':
         form = PetForms(request.POST, request.FILES)
         if form.is_valid():
             pet = form.save(commit=False)  # Salva a instância sem escrever no banco
-            pet.save()  # Salva a instância no banco para obter o caminho da imagem
-            
-            if pet.foto:  # Verifica se a imagem foi enviada
-                img = Image.open(pet.foto.path)  # Abre a imagem
+            pet.save()  # Salva no banco para obter o caminho da imagem
+
+            if pet.foto:
+                img = Image.open(pet.foto.path)
                 width, height = img.size
                 
-                tamanho_ideal = 150/100
-                tamanho_aceitavel_maior = tamanho_ideal*1.2
-                tamanho_aceitavel_menor = tamanho_ideal*0.8
+                # if is_image(img.format) == (False,):
+                #     return messages.error(f'O Formato é invalido')
                 
-                if not (width/ height) == 150/100:
-                    if ((width/ height) < tamanho_aceitavel_menor) or ((width/ height) > tamanho_aceitavel_maior):
-                        #essa logica ainda não funciona. corrigir
-                        if height > width:
-                            # Define a área de recorte 150x100 centralizada
-                            left = width / 2
-                            top = (width * 1.5) / 2
-                            right = width / 2
-                            bottom = (width * 1.5) / 2
-                            img = img.crop((left, top, right, bottom))  # Realiza o recorte
-                        else:
-                            left = (height * (2/3)) / 2
-                            top = height / 2
-                            right = (height * (2/3)) / 2
-                            bottom = height / 2
-                            img = img.crop((left, top, right, bottom))  # Realiza o recorte
-                    else:
-                        size = (150, 100)
-                        img = img.resize(size, Image.LANCZOS)  # Substitui Image.ANTIALIAS por Image.LANCZOS
-                        
-                img.save(pet.foto.path)  # Salva a imagem recortada
+                # Define a proporção alvo
+                target_aspect_ratio = 150 / 100
+                current_aspect_ratio = width / height
+
+                if current_aspect_ratio < target_aspect_ratio:
+                    # Caso a imagem seja mais alta que larga, corta em cima e embaixo
+                    new_height = int(width / target_aspect_ratio)
+                    top = (height - new_height) // 2
+                    bottom = top + new_height
+                    img = img.crop((0, top, width, bottom))  # Recorte vertical centralizado
+
+                elif current_aspect_ratio > target_aspect_ratio:
+                    # Caso a imagem seja mais larga que alta, corta nas laterais
+                    new_width = int(height * target_aspect_ratio)
+                    left = (width - new_width) // 2
+                    right = left + new_width
+                    img = img.crop((left, 0, right, height))  # Recorte horizontal centralizado
+
+                # Redimensiona para 150x100 mantendo a qualidade
+                img = img.resize((150, 100), Image.LANCZOS)
+                img.save(pet.foto.path, quality=90, optimize=True, )  # Salva a imagem processada #exif=img.info.get('exif')
 
             return redirect('home')  # Redireciona após o cadastro bem-sucedido
     else:
-        form = PetForms()  # Inicializa um novo formulário
+        form = PetForms()
 
     return render(request, 'pets/cadastra_pet.html', {'form': form})
 
