@@ -15,16 +15,16 @@ class Migration(migrations.Migration):
             name='Pet',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nome', models.CharField(max_length=50)),
-                ('categoria', models.CharField(choices=[('Can', 'Canino'), ('Fel', 'Felino'), ('Ave', 'Ave'), ('rep', 'Réptil')], max_length=3)),
-                ('foto', models.ImageField(blank=True, upload_to='foto/%Y/%m/%d/')),
+                ('name', models.CharField(max_length=50)),
+                ('category', models.CharField(choices=[('Can', 'Canino'), ('Fel', 'Felino'), ('Ave', 'Ave'), ('rep', 'Réptil')], max_length=3)),
+                ('photo', models.ImageField(blank=True, upload_to='photo/%Y/%m/%d/')),
             ],
         ),
         migrations.CreateModel(
             name='usuario',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nome', models.CharField(max_length=100)),
+                ('name', models.CharField(max_length=100)),
                 ('email', models.EmailField(max_length=100)),
                 ('cpf', models.CharField(max_length=11, unique=True)),
                 ('telefone', models.CharField(max_length=15)),

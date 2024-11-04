@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 /* Estilo geral do corpo */
 body {
     font-family: Arial, sans-serif;
@@ -47,6 +52,30 @@ footer p {
     background-color: #e5d0a6c7;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
+}
+
+.barra-propaganda {
+    position: fixed;
+    top: 50%; /* Posiciona no meio da altura da tela */
+    width: 150px; /* Largura fixa para as barras de propaganda */
+    height: 300px; /* Altura fixa para as barras de propaganda */
+    background-color: #cccccc;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-50%); /* Centraliza verticalmente */
+}
+
+.barra-esquerda {
+    left: 20px; /* Posiciona a barra à esquerda */
+}
+
+.barra-direita {
+    right: 20px; /* Posiciona a barra à direita */
 }
 
 .card:hover {

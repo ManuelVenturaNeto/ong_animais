@@ -3,8 +3,7 @@ from .models import Pet
 from .forms import PetForms
 from django.contrib import messages
 from PIL import Image
-import os
-# from .validators import is_image
+
 
 def home(request):
     pets = Pet.objects.all()
@@ -26,15 +25,11 @@ def register_pet(request):
             pet = form.save(commit=False)  # Salva a instância sem escrever no banco
             pet.save()  # Salva no banco para obter o caminho da imagem
 
-            if pet.foto:
-                img = Image.open(pet.foto.path)
+            if pet.photo:
+                img = Image.open(pet.photo.path)
                 width, height = img.size
                 
-                # if is_image(img.format) == (False,):
-                #     return messages.error(f'O Formato é invalido')
-                
-                # Define a proporção alvo
-                target_aspect_ratio = 150 / 100
+                target_aspect_ratio = 150 / 100  # Define a proporção alvo
                 current_aspect_ratio = width / height
 
                 if current_aspect_ratio < target_aspect_ratio:
@@ -53,7 +48,7 @@ def register_pet(request):
 
                 # Redimensiona para 150x100 mantendo a qualidade
                 img = img.resize((150, 100), Image.LANCZOS)
-                img.save(pet.foto.path, quality=90, optimize=True, )  # Salva a imagem processada #exif=img.info.get('exif')
+                img.save(pet.photo.path, quality=90, optimize=True, )  # Salva a imagem processada #exif=img.info.get('exif')
 
             return redirect('home')  # Redireciona após o cadastro bem-sucedido
     else:
@@ -61,14 +56,14 @@ def register_pet(request):
 
     return render(request, 'pets/register_pet.html', {'form': form})
 
-def delete_pet(request, foto_id):
-    pet = Pet.objects.get(id=foto_id)
+def delete_pet(request, photo_id):
+    pet = Pet.objects.get(id=photo_id)
     pet.delete()
     messages.success(request, "Pet deletado com sucesso")
     return redirect('home')
 
-def edit_pet(request, foto_id):
-    pet = Pet.objects.get(id=foto_id)
+def edit_pet(request, photo_id):
+    pet = Pet.objects.get(id=photo_id)
     form = PetForms(instance=pet)
     
     if request.method == 'POST':
@@ -77,4 +72,4 @@ def edit_pet(request, foto_id):
             form.save()
             messages.success(request, 'Pet editado com sucesso')
             return redirect('home')
-    return render(request, 'pets/edit_pet.html', {'form': form, 'foto_id': foto_id})
+    return render(request, 'pets/edit_pet.html', {'form': form, 'photo_id': photo_id})

@@ -41,7 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ong_animais',
+    
+    'apps.love_fauna',
+    'apps.clinicas',
+    'apps.ongs',
+    'apps.users',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +137,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MESSAGE_TAGS = {
+    messages.ERROR: "warning",
+    messages.SUCCESS: "success",
+}
