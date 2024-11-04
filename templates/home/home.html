@@ -3,16 +3,28 @@
 {% block content %}
     <!-- Menu Principal -->
     <div class="container mt-5">
-        <h1>Doe seu lar, adote um pet</h1>
-        <p>Abaixo então os animais disponiveis para adoção. Selecione quem você quer adotar!</p>
-        
-        <div class="container flex-grow-1">
-            <!-- Cards -->
-            <div class="row">
-                {% for pet in pets %}
-                    {% include 'home/cards_pets.html' %}
-                {% endfor %}
+        <div class="row">
+            <!-- Coluna da propaganda 1 -->   
+            <aside class="col-md-2">
+                <img class="imagem-propaganda" src="{% static 'assets/fotos/propaganda_1.jpg' %}" alt="Propagando" style="width: 100%; height: auto; margin-top: 5px;">
+            </aside>
+            <div class="col-md-12">
+                <h1>Doe seu lar, adote um pet</h1>
+                <p>Abaixo então os animais disponiveis para adoção. Selecione quem você quer adotar!</p>
+                
+                <div class="container flex-grow-1">
+                    <!-- Cards -->
+                    <div class="row">
+                        {% for pet in pets %}
+                            {% include 'home/cards_pets.html' %}
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
+            <!-- Coluna da propaganda 2 -->   
+            <aside class="col-md-2">
+                <img class="imagem-propaganda" src="{% static 'assets/fotos/propaganda_2.jpg' %}" alt="Propagando" style="width: 100%; height: auto; margin-top: 5px;">
+            </aside>
         </div>
     </div>
     {% if user.is_superuser %}
