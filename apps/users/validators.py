@@ -8,4 +8,12 @@ def birthday_valid(value):
 
 def cpf_validator(numero_cpf):
     cpf = CPF()
-    
+    if not cpf.validate(numero_cpf):
+        raise ValidationError("CPF inválido.")
+
+def cnpj_validator(numero_cnpj):
+    cnpj = CNPJ()
+    if numero_cnpj is not None:
+        if not cnpj.validate(numero_cnpj):
+            raise ValidationError("CNPJ inválido.")
+        

@@ -3,50 +3,72 @@
     margin: 0;
     padding: 0;
 }
+
 /* Estilo geral do corpo */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
-.coluna {
-    padding: 20px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
+
+/* Centraliza o conteúdo principal */
+.container {
+    margin-left: auto;
+    margin-right: auto;
 }
+
+/* Contêiner principal */
+.container-fluid {
+    display: inline-block;
+    justify-content: space-between;
+    padding: 0 170px; /* Espaço para as barras laterais */
+}
+
+/* Conteúdo central */
+.conteudo-central {
+    flex: 1;
+    margin-top: 5rem;
+}
+
+/* Espaço extra nas laterais para evitar sobreposição com as propagandas */
+.container.mt-5 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 /* Estilo da Navbar */
 .navbar {
-    background-color: #007bff; /* Azul do Bootstrap */
+    background-color: #007bff;
 }
 
 .navbar-brand, .nav-link {
-    color: white !important; /* Texto branco */
+    color: white !important;
 }
 
 .nav-link:hover {
-    color: #ffcc00 !important; /* Cor do texto ao passar o mouse */
+    color: #ffcc00 !important;
 }
 
 /* Estilo do footer */
 footer {
-    background-color: #f8f9fa; /* Cor de fundo do footer */
+    background-color: #f8f9fa;
     padding: 20px 0;
 }
 
 footer h5 {
     margin-bottom: 10px;
-    color: #333; /* Cor do título no footer */
+    color: #333;
 }
 
 footer p {
-    color: #666; /* Cor do texto no footer */
+    color: #666;
 }
 
 /* Estilo do Card */
 .card {
     width: 100%;
     max-width: 250px;
-    min-height: 450px; /* Define uma altura mínima para uniformizar os cards */
+    min-height: 450px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -58,48 +80,17 @@ footer p {
     transition: transform 0.3s ease;
 }
 
-.barra-propaganda {
-    position: fixed;
-    top: 50%; /* Posiciona no meio da altura da tela */
-    width: 150px; /* Largura fixa para as barras de propaganda */
-    height: 300px; /* Altura fixa para as barras de propaganda */
-    background-color: #cccccc;
-    color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transform: translateY(-50%); /* Centraliza verticalmente */
-}
-
-.barra-esquerda {
-    left: 20px; /* Posiciona a barra à esquerda */
-}
-
-.barra-direita {
-    right: 20px; /* Posiciona a barra à direita */
-}
-
 .card:hover {
-    transform: scale(1.05); /* Aumenta o card ao passar o mouse */
+    transform: scale(1.05);
 }
 
-/* Estilo da imagem do card */
 .imagem-card {
     width: 100%;
     height: 150px;
     object-fit: cover;
     border-radius: 10px 10px 0 0;
 }
-.imagem-propaganda {
-    width: 100%;
-    object-fit: cover;
-    border-radius: 5px 5px 0 0;
-}
 
-/* Título e Categoria com largura fixa */
 .card-title, .card-text {
     font-size: 1.25rem;
     color: #333;
@@ -110,44 +101,30 @@ footer p {
     margin: 10px 0;
 }
 
-/* Grupo de botões para centralização */
 .button-group {
     display: flex;
     flex-direction: column;
-    min-width: 80%; /* Define um comprimento máximo para todos os botões */
+    min-width: 80%;
     gap: 5px;
 }
 
-/* Botões uniformes */
 .button-group .btn {
-    width: 100%; /* Faz os botões ocuparem toda a largura disponível */
+    width: 100%;
     padding: 8px;
 }
 
 .dropdown {
     position: relative;
-    display: inline-block;
 }
 
-/* Ocultar o menu inicialmente */
-.dropdown-content {
+.dropdown-menu {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 200px;
     box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
     padding: 10px;
-    z-index: 1;
 }
 
-/* Mostrar o menu quando o usuário passa o mouse sobre o botão */
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-menu {
     display: block;
-}
-
-/* Estilo dos itens do menu */
-.dropdown-content label {
-    display: block;
-    margin: 5px 0;
-    cursor: pointer;
 }

@@ -1,5 +1,6 @@
 {% load static %}
 <!-- Navbar -->
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container">
         <a href="{% url 'home' %}" class="navbar-brand">Ong que cuida de Animais</a> 
@@ -8,19 +9,27 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
+                {% if not user.is_authenticated %}
+                <li class="nav-item active">
+                    <a href="{% url 'login' %}" class="nav-link">Login</a>
+                </li>
                 <!-- Cadastro Dropdown -->
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" id="cadastroDropdown" role="button">Cadastro</a>
-                    <div class="dropdown-menu" aria-labelledby="cadastroDropdown">
-                        <a href="#" class="dropdown-item">Cadastrar Usuário</a>
-                        <a href="#" class="dropdown-item">Cadastrar Petshop</a>
-                        <a href="#" class="dropdown-item">Cadastrar Ong</a>
+                    <a class="nav-link dropdown-toggle dropdown" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastro</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a href="{% url 'register_user' %}" class="dropdown-item">Cadastrar Usuário</a>
+                        <a href="{% url 'register_shelter' %}" class="dropdown-item">Cadastrar Ong</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">{{ user.username }}</a>
-                </li>
+                {% else %}
                 <li class="nav-item active">
+                    <a href="" class="nav-link">{{ user.username }}</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Logout</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
                     <a href="{% url 'home' %}" class="nav-link">Início <span class="sr-only">(página atual)</span></a>
                 </li>
                 <li class="nav-item">

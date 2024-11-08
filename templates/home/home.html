@@ -1,32 +1,40 @@
-{% extends 'base/base.html' %} 
+{% extends 'base/base.html' %}
 {% load static %}
 {% block content %}
-    <!-- Menu Principal -->
-    <div class="container mt-5">
-        <div class="row">
-            <!-- Coluna da propaganda 1 -->   
-            <aside class="col-md-2">
-                <img class="imagem-propaganda" src="{% static 'assets/fotos/propaganda_1.jpg' %}" alt="Propagando" style="width: 100%; height: auto; margin-top: 5px;">
-            </aside>
-            <div class="col-md-12">
-                <h1>Doe seu lar, adote um pet</h1>
-                <p>Abaixo então os animais disponiveis para adoção. Selecione quem você quer adotar!</p>
-                
-                <div class="container flex-grow-1">
-                    <!-- Cards -->
-                    <div class="row">
-                        {% for pet in pets %}
-                            {% include 'home/cards_pets.html' %}
-                        {% endfor %}
+    <div class="container-fluid">
+        <!-- Coluna da propaganda 1 (esquerda) -->
+        <div class="barra-propaganda barra-esquerda">
+            <img src="{% static 'assets/fotos/propaganda_1.jpg' %}" style="width: 250px; margin-left: 5px;">
+        </div>
+
+        <!-- Conteúdo Central -->
+        <div class="conteudo-central" >
+            <!-- Menu Principal -->
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Doe seu lar, adote um pet</h1>
+                        <p>Abaixo então os animais disponíveis para adoção. Selecione quem você quer adotar!</p>
+
+                        <div class="container">
+                            <!-- Cards -->
+                            <div class="row">
+                                {% for pet in pets %}
+                                    {% include 'home/cards_pets.html' %}
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Coluna da propaganda 2 -->   
-            <aside class="col-md-2">
-                <img class="imagem-propaganda" src="{% static 'assets/fotos/propaganda_2.jpg' %}" alt="Propagando" style="width: 100%; height: auto; margin-top: 5px;">
-            </aside>
+        </div>
+
+        <!-- Coluna da propaganda 2 (direita) -->
+        <div class="barra-propaganda barra-direita">
+            <img src="{% static 'assets/fotos/propaganda_2.jpg' %}" style="width: 250px;  margin-right: 5px;">
         </div>
     </div>
+
     {% if user.is_superuser %}
     <div class="container mt-5">
         <a href="{% url 'register_pet' %}" class="btn btn-outline-primary">Registrar pet</a>

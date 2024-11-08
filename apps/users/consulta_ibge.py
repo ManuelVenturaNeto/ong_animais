@@ -3,8 +3,10 @@ from ibge.localidades import *
 
 def unidade_federativa():
     uf_estado = Estados()
-    sigla_uf = uf_estado.getSigla()
-    return sigla_uf
+    siglas = uf_estado.getSigla()
+    nomes = uf_estado.getNome()
+    estados = list(zip(siglas, nomes))  # Cria uma lista de tuplas (sigla, nome)
+    return estados
 
 
 def municipios_por_uf(unidade_federativa):    

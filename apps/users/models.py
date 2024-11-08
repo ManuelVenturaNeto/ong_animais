@@ -1,47 +1,47 @@
 from django.db import models
-from .validators import birthday_valid
-import datetime
-from .consulta_ibge import unidade_federativa, municipios_por_uf
-
+from .validators import birthday_valid, cpf_validator, cnpj_validator
+from django.utils import timezone
+from .consulta_ibge import unidade_federativa
+ 
 
 class Address(models.Model):
     COUNTRY = [
         ('BR', 'Brasil')
     ]
-    country = models.CharField(choices=COUNTRY)
+    country = models.CharField(max_length=2, choices=COUNTRY)
     zip_code = models.CharField(max_length=8)
     state = models.CharField(max_length=2, choices=unidade_federativa)
-    city = models.CharField(max_length=100, choices=municipios_por_uf(state))
+    city = models.CharField(max_length=50)
     neighborhood = models.CharField(max_length=100)
     street = models.CharField(max_length=255)
     number = models.CharField(max_length=10, blank=True, null=True)
     complement = models.CharField(max_length=255, blank=True, null=True)
-    
-    
 
     def __str__(self):
         return f'{self.street}, {self.number} - {self.neighborhood}, {self.city}/{self.state} - {self.zip_code}'
 
 class User(models.Model):
-    name = models.CharField(max_length=100, blank=False, null=False)
-    cpf = models.CharField(max_length=11, blank=False, null=False)
-    phone = models.CharField(max_length=15, blank=False, null=False)
-    email = models.EmailField(max_length=150, blank=False, null=False)
-    birthday = models.DateField(default=datetime.now, validators=[birthday_valid], blank=False, null=False)
-    creat_at = models.DateTimeField(default=datetime.now, blank=False, null=False)
-    terms = models.BooleanField(default=False, blank=False, null=False)
+    name = models.CharField(max_length=100)
+    cpf = models.CharField(max_length=11, unique=True, validators=[cpf_validator])
+    phone = models.CharField(max_length=15)
+    email = models.EmailField(max_length=150)
+    birthday = models.DateField(default=timezone.localdate, validators=[birthday_valid])
+    terms = models.BooleanField(default=False)
     id_address = models.OneToOneField(Address, on_delete=models.CASCADE)
+    creat_at = models.DateTimeField(default=timezone.now)
     
 class Shelter(models.Model):
-    responsible_name = models.CharField(max_length=100, blank=False, null=False)
-    responsible_cpf = models.CharField(max_length=11, blank=False, null=False)
-    responsible_phone = models.CharField(max_length=15, blank=False, null=False)
-    responsible_email = models.EmailField(max_length=150, blank=False, null=False)
+    responsible_name = models.CharField(max_length=100)
+    responsible_cpf = models.CharField(max_length=11, unique=True)
+    responsible_phone = models.CharField(max_length=15)
+    responsible_email = models.EmailField(max_length=150)
+    responsible_birthday = models.DateField(default=timezone.localdate, validators=[birthday_valid])
     
-    shelter_name = models.CharField(max_length=100, default='Não Informado')
-    shelter_cnpj = models.CharField(max_length=14, default='Não Informado')
-    shelter_phone = models.CharField(max_length=15, default='Não Informado')
-    shelter_email = models.EmailField(max_length=150, default='Não Informado')
+    shelter_name = models.CharField(max_length=100,)
+    shelter_cnpj = models.CharField(max_length=14, unique=True, validators=[cnpj_validator])
+    shelter_phone = models.CharField(max_length=15)
+    shelter_email = models.EmailField(max_length=150)
     
     id_address = models.OneToOneField(Address, on_delete=models.CASCADE)
-    creat_at = models.DateTimeField(default=datetime.now, blank=False, null=False)
+    terms = models.BooleanField(default=False)
+    creat_at = models.DateTimeField(default=timezone.now)
