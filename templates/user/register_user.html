@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+<form action="{% url 'register_user' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group row">
+        {% for field in form_user.visible_fields %}
+            <label class="col-12" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+        {% endfor %}
+        {% for field in form_address.visible_fields %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+        {% endfor %}
+    </div>
+    <div>
+        <button type="submit" class="btn btn-outline-primary" style="padding: top 5px;">Logar</button>
+    </div>
+</form>
+{% endblock %}

@@ -1,43 +1,43 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block content %}
-    <div class="container-fluid">
-        <!-- Coluna da propaganda 1 (esquerda) -->
-        <div class="barra-propaganda barra-esquerda">
-            <img src="{% static 'assets/fotos/propaganda_1.jpg' %}" style="width: 250px; margin-left: 5px;">
-        </div>
+<div class="row" style="display: flex; align-items: center; justify-content: center;">
+    <!-- Coluna da propaganda 1 (esquerda) -->
+    <div class="barra-propaganda barra-esquerda">
+        <img src="{% static 'assets/fotos/propaganda_1.jpg' %}" class="img-propaganda" style="width: 250px;">
+    </div>
 
-        <!-- Conteúdo Central -->
-        <div class="conteudo-central" >
-            <!-- Menu Principal -->
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1>Doe seu lar, adote um pet</h1>
-                        <p>Abaixo então os animais disponíveis para adoção. Selecione quem você quer adotar!</p>
+    <!-- Conteúdo Central -->
+    <div class="conteudo-central" >
+        <!-- Menu Principal -->
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Doe seu lar, adote um pet</h1>
+                    <p>Abaixo então os animais disponíveis para adoção. Selecione quem você quer adotar!</p>
 
-                        <div class="container">
-                            <!-- Cards -->
-                            <div class="row">
-                                {% for pet in pets %}
-                                    {% include 'home/cards_pets.html' %}
-                                {% endfor %}
-                            </div>
+                    <div class="container">
+                        <!-- Cards -->
+                        <div class="row">
+                            {% for pet in pets %}
+                                {% include 'home/cards_pets.html' %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Coluna da propaganda 2 (direita) -->
-        <div class="barra-propaganda barra-direita">
-            <img src="{% static 'assets/fotos/propaganda_2.jpg' %}" style="width: 250px;  margin-right: 5px;">
-        </div>
     </div>
 
-    {% if user.is_superuser %}
-    <div class="container mt-5">
-        <a href="{% url 'register_pet' %}" class="btn btn-outline-primary">Registrar pet</a>
+    <!-- Coluna da propaganda 2 (direita) -->
+    <div class="barra-propaganda barra-direita" >
+        <img src="{% static 'assets/fotos/propaganda_2.jpg' %}" class="img-propaganda" style="width: 250px;">
     </div>
-    {% endif %}
+</div>
+
+{% if user.is_superuser %}
+<div class="container mt-5">
+    <a href="{% url 'register_pet' %}" class="btn btn-outline-primary">Registrar pet</a>
+</div>
+{% endif %}
 {% endblock %}

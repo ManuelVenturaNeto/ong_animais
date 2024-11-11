@@ -3,10 +3,10 @@ from .models import Address, User, Shelter
 from .consulta_ibge import unidade_federativa, municipios_por_uf
 from django.contrib.auth.forms import AuthenticationForm
 
-class LoginForm(AuthenticationForm):
-    username = forms.CharField(label="Usuário", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(label="Senha", widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    login_type = forms.ChoiceField(choices=[('user', 'Usuário'), ('shelter', 'Abrigo')], widget=forms.Select(attrs={'class': 'form-control'}))
+# class LoginForm(AuthenticationForm):
+#     username = forms.CharField(label="Usuário", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+#     password = forms.CharField(label="Senha", widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+#     login_type = forms.ChoiceField(choices=[('user', 'Usuário'), ('shelter', 'Abrigo')], widget=forms.Select(attrs={'class': 'form-control'}))
 
 
 class AddressForm(forms.ModelForm):
@@ -36,12 +36,16 @@ class AddressForm(forms.ModelForm):
             'number': forms.TextInput(attrs={'class': 'form-control'}),
             'complement': forms.TextInput(attrs={'class': 'form-control'}),
         }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        state = self.initial.get('state')
-        if state:
-            self.fields['city'].choices = municipios_por_uf(state)
+        placeholder = {
+            'country': 'Brasil',
+            'zip_code': '12345-678',
+            'state': 'MG',
+            'city': 'Belo Horizonte',
+            'neighborhood': 'Belvedere',
+            'street': 'Rua do Jaraguas',
+            'number': '100',
+            'complement': 'Bloco C',
+        }
 
 
 class UserForm(forms.ModelForm):
@@ -50,6 +54,7 @@ class UserForm(forms.ModelForm):
         exclude = ['creat_at']
         labels = {
             'name': 'Nome',
+            'password': 'Senha',
             'cpf': 'CPF',
             'phone': 'Numero de Celular',
             'email': 'Email',
@@ -57,14 +62,14 @@ class UserForm(forms.ModelForm):
             'terms': 'Concorda com os termos de adesão',
         }
         widgets = {
-            'name': forms.TextInput(attrs={'class':'form-control'}),
-            'cpf': forms.TextInput(attrs={'class':'form-control'}),
-            'phone': forms.TextInput(attrs={'class':'form-control'}),
-            'email': forms.TextInput(attrs={'class':'form-control'}),
-            'birthday': forms.DateInput(attrs={'class':'form-control'}),
+            'name': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Seu nome'}),
+            'password': forms.PasswordInput(attrs={'class':'form-control', 'placeholder': 'Senha123!'}),
+            'cpf': forms.TextInput(attrs={'class':'form-control', 'placeholder': '123.456.789-12'}),
+            'phone': forms.TextInput(attrs={'class':'form-control', 'placeholder': '00 912345678'}),
+            'email': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'email@email.com'}),
+            'birthday': forms.DateInput(attrs={'class':'form-control', 'placeholder': '01/01/2000'}),
             'terms': forms.CheckboxInput(attrs={'class':'form-control'}),
         }
-        
         
 class ShelterForm(forms.ModelForm):
     class Meta:
@@ -72,6 +77,7 @@ class ShelterForm(forms.ModelForm):
         exclude = ['creat_at']
         labels = {
             'name': 'Nome',
+            'password': 'Senha',
             'cpf': 'CPF',
             'phone': 'Numero de Celular',
             'email': 'Email',
@@ -80,6 +86,7 @@ class ShelterForm(forms.ModelForm):
         }
         widgets = {
             'responsible_name': forms.TextInput(attrs={'class':'form-control'}),
+            'passaword': forms.PasswordInput(attrs={'class':'form-control'}),
             'responsible_cpf': forms.TextInput(attrs={'class':'form-control'}),
             'responsible_phone': forms.TextInput(attrs={'class':'form-control'}),
             'responsible_email': forms.TextInput(attrs={'class':'form-control'}),

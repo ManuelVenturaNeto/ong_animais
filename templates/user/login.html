@@ -1,18 +1,13 @@
 {% extends 'base/base.html' %}
-
 {% load static %}
-
 {% block content %}
-<br>
-<br>
-<br>
-<form action="{% url 'apply_login' %}" method="POST">  <!-- Alterar para POST -->
+<form action="#" method="POST">  <!-- Alterar para POST -->
     {% csrf_token %}
     <div class="row">
         {% for field in form.visible_fields %}
             <div class="col-md-12 col-lg-12" style="margin-bottom: 10px;">
                 <label for="{{ field.id_for_label }}" style="color: #e5d0a6c7; margin-bottom: 5px;">{{ field.label }}</label>
-                {{ field }}  <!-- Renderiza o campo de input -->
+                {{ field }}
             </div>
         {% endfor %}
         <div>
